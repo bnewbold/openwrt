@@ -312,3 +312,63 @@ define KernelPackage/leds-net48xx/description
 endef
 
 $(eval $(call KernelPackage,leds-net48xx))
+
+define KernelPackage/pch-phub
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Intel EG20T PCH PHUB
+  DEPENDS:=@TARGET_x86
+  KCONFIG:=CONFIG_PCH_PHUB
+  FILES:=$(LINUX_DIR)/drivers/misc/pch_phub.ko
+  AUTOLOAD:=$(call AutoLoad,50,pch_phub)
+endef
+
+define KernelPackage/pch-phub/description
+ Kernel module for Intel EG20T PCH PHUB and OKI SEMICONDUCTOR IOH ML7213 and ML7223.
+endef
+
+$(eval $(call KernelPackage,pch-phub))
+
+define KernelPackage/gpio-pch
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Intel EG20T PCH GPIO
+  DEPENDS:=@TARGET_x86
+  KCONFIG:=CONFIG_GPIO_PCH
+  FILES:=$(LINUX_DIR)/drivers/gpio/gpio-pch.ko
+  AUTOLOAD:=$(call AutoLoad,50,gpio-pch)
+endef
+
+define KernelPackage/gpio-pch/description
+ Kernel module for Intel EG20T PCH GPIO and LAPIS Semiconductor IOH ML7223 and ML7831.
+endef
+
+$(eval $(call KernelPackage,gpio-pch))
+
+define KernelPackage/pch-dma
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Intel EG20T PCH DMA
+  DEPENDS:=@TARGET_x86
+  KCONFIG:=CONFIG_PCH_DMA CONFIG_PCI=y CONFIG_DMADEVICES=y CONFIG_DMA_ENGINE=y
+  FILES:=$(LINUX_DIR)/drivers/dma/pch_dma.ko
+  AUTOLOAD:=$(call AutoLoad,50,pch_dma)
+endef
+
+define KernelPackage/pch-dma/description
+ Kernel module for Intel EG20T PCH DMA and LAPIS Semiconductor IOH ML7213, ML7223 and ML7831.
+endef
+
+$(eval $(call KernelPackage,pch-dma))
+
+define KernelPackage/pch-can
+  SUBMENU:=$(OTHER_MENU)
+  TITLE:=Intel EG20T PCH CAN controller
+  DEPENDS:=@TARGET_x86
+  KCONFIG:=CONFIG_PCH_CAN CONFIG_CAN=y CONFIG_CAN_DEV=y
+  FILES:=$(LINUX_DIR)/drivers/net/can/pch_can.ko
+  AUTOLOAD:=$(call AutoLoad,50,pch_can)
+endef
+
+define KernelPackage/pch-can/description
+ Kernel module for Intel EG20T PCH CAN controller. This driver can access CAN bus.
+endef
+
+$(eval $(call KernelPackage,pch-can))

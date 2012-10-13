@@ -663,3 +663,18 @@ define KernelPackage/dm9000/description
 endef
 
 $(eval $(call KernelPackage,dm9000))
+
+define KernelPackage/igb
+  SUBMENU:=$(NETWORK_DEVICES_MENU)
+  TITLE:=Intel(R) 82575/82576 PCI-Express Gigabit Ethernet
+  DEPENDS:=@PCIE_SUPPORT
+  KCONFIG:=CONFIG_IGB CONFIG_DCA CONFIG_IGB_DCA=y
+  FILES:=$(LINUX_DIR)/drivers/net/ethernet/intel/igb/igb.ko
+  AUTOLOAD:=$(call AutoLoad,45,igb)
+endef
+
+define KernelPackage/igb/description
+ Kernel modules for Intel(R) 82575/82576 PCI-Express Gigabit Ethernet
+endef
+
+$(eval $(call KernelPackage,igb))
