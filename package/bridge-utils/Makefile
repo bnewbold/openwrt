@@ -45,7 +45,7 @@ endef
 
 define Package/bridge/install
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/brctl/brctl $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/usr/lib
 endef
 
 $(eval $(call BuildPackage,bridge))
