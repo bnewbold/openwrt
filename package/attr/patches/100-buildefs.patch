@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -6681,7 +6681,7 @@
+ LIBTOOL_DEPS="$ltmain"
+ 
+ # Always use our own libtool.
+-LIBTOOL='$(SHELL) $(top_builddir)/libtool'
++LIBTOOL='$(CONFIG_SHELL) $(top_builddir)/libtool'
+ 
+
+
