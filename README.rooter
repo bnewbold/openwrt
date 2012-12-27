@@ -1,0 +1,63 @@
+                   _            
+   _ __ ___   ___ | |_ ___ _ __ 
+  | '__/ _ \ / _ \| __/ _ \ '__|
+  | | | (_) | (_) | ||  __/ | _ 
+  |_|  \___/ \___/ \__\___|_|(_)
+                 
+
+This is the repository for rooter's additions to OpenWRT. For more notes and
+directions:
+
+    http://wiki.rooter.is/openwrt
+
+See also http://rooter.is
+
+### Setup a build environment
+
+    sudo apt-get install build-essential git-core subversion libncurses5-dev zlib1g-dev gawk flex libssl-dev gcc-multilib bzip2 g++ util-linux intltool patch python-dev sdcc wget unzip zlib-dev
+    ./scripts/feeds update
+    ./scripts/feeds install
+    rm .config
+    ln -s rooter.config .config
+
+
+Check for any stray missing dependancies:
+
+    make prereq
+
+### Making simple changes
+
+To include programs which are already packaged for OpenWRT:
+
+    make menuconfig # look TODO:
+
+To add kernel modules which are already OpenWRT packaged:
+
+    make menuconfig # look in "Kernel modules  --->" menu
+
+To add other kernel settings:
+
+    make kernel_menuconfig CONFIG_TARGET=subtarget
+
+### Do a single-package build
+
+Eg, for lxc:
+
+    make package/lxc/compile
+    make package/lxc/install
+    make package/index
+
+### Do a full image build
+
+    # these seem to be required... a bug?
+    ./scripts/feeds install libattr
+    ./scripts/feeds install libcap
+    ./scripts/feeds install lxc
+    make package/libattr/install
+    make package/libcap/install
+    make package/lxc/install
+    # to ensure configuration is up to date
+    make menuconfig
+    # do it!
+    make -j 3 # or higher for many-core machines
+
